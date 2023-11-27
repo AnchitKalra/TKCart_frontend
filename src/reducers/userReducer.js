@@ -48,7 +48,9 @@ switch(type) {
            state.signupFlag = data.data;
            return {...state}
     case 'LOGIN':
-            state.loginFlag = true;
+            if(data.data.username){
+                state.loginFlag = true;
+            }
             return {...state, ...data.data}
   
         
