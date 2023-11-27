@@ -1,0 +1,12 @@
+#divContainer{
+    display: flex;
+    flex-direction: column;
+}
+.innerContainer {
+    display: flex;
+    flex-direction: row;
+}
+.list{
+    margin: 2%;
+   padding: 3%;
+}

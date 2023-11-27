@@ -1,0 +1,14 @@
+#cartContainer{
+    display: flex;
+    flex-direction: column;
+}
+.card{
+    display: flex;
+    flex-direction: column;
+}
+#total{
+    margin-left: 2%;
+}
+#checkout{
+    margin-left: 2%;
+}

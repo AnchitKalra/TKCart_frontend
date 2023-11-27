@@ -1,0 +1,14 @@
+#signupContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    justify-self: center;
+    margin-top: 15%;
+}
+
+#signupForm{
+    border: 5px solid black;
+    height: 150px;
+    padding: 4%;
+}

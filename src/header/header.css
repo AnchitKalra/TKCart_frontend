@@ -1,0 +1,39 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+#container{
+    display: flex;
+    background-color: black;
+    height: 100px;
+    width: 100%;
+
+}
+
+#tk{
+    color: greenyellow;
+    margin: 3%;
+
+}
+#signUp{
+    margin-left: 60%;
+}
+#cartButton{
+   
+    margin-left: 70%;
+}
+#cart{
+    background-color: aliceblue;
+}
+#count{
+    font-size: larger;
+   background-color: red;
+   color: white;
+}
+.sidebar {
+    margin-left: 90%;
+    display: flex;
+    width: 8%;
+    background-color: aqua;
+    flex-direction: column;
+}
