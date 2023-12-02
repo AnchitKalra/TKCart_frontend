@@ -4,18 +4,17 @@ import {ReactComponent as AddTocart} from '../products/Addtocart.svg';
 import './showcart.css';
 import Header from '../header/Header';
 import { checkoutActionCreator } from '../reducers/orderReducer';
-import { cartActionCreator, clearCheckoutActionCreator, updateQuantityActionCreator } from '../reducers/cartReducer';
+import {  clearCheckoutActionCreator, updateQuantityActionCreator } from '../reducers/cartReducer';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 
 function ShowCart() {
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     let cart = useSelector(cart => cart.cart.state);
     let user= useSelector(user => user.user);
-    let orderId = useSelector(order => order.order?.state)
     let [isOrder, setOrder] = useState(false);
-    console.log('logging order id');
-    console.log(orderId);
 
    
       
@@ -34,26 +33,18 @@ function ShowCart() {
         let {username} = user
         let userId = {username};
         order = {cartId, userId};
-        console.log('logging order');
-        console.log(order);
         dispatch(checkoutActionCreator(order));
         dispatch(clearCheckoutActionCreator);
             setOrder(true);
+            navigate('/summary');
     }
 
     function minusHandler(e) {
         try{
             let id = e.target.id;
-            let plusId = parseInt(id) + 1;
-            let btn = document.getElementById(plusId);
-            let text = btn.innerText.slice(1, 2);
-            text = parseInt(text);
-            if(text === 0) {
-                return;
-            }
         let cart = {};
-           cart["id"] = (id); 
-           cart["minus"] = 'minus';
+           cart["id"] = parseInt(id); 
+           cart["plusMinus"] = 'minus';
             console.log("FROM HANDLECART");
             console.log(cart)
         JSON.parse(JSON.stringify(cart));
@@ -65,10 +56,11 @@ function ShowCart() {
 
     function plusHandler(e) {
         try{
-            let id = e.target.id;
-            let btn = document.getElementById(id);
-        let cart = {};
-           cart["id"] = (id - 1); 
+
+            let idInt = e.target.id;
+            let cart = {};
+            
+            cart["id"] = Number(idInt) - 1; 
             console.log("FROM HANDLECART");
             console.log(cart)
         JSON.parse(JSON.stringify(cart));
@@ -79,8 +71,10 @@ function ShowCart() {
     }
 
     return(
-        <>
-        <Header></Header>
+        <div>
+            <>
+        <Header />
+        </>
         <div id = 'cartContainer'>
        {
         Array.isArray(cart) ? cart?.map(item =>{
@@ -128,7 +122,7 @@ function ShowCart() {
             autoHideDuration={3000}
             onClose={()=> setOrder(false)}><Alert severity ="success"> Order successfully placed!</Alert></Snackbar>
             
-            </>)
+            </div>)
 }
 
 export default ShowCart;

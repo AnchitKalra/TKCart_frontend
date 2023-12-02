@@ -1,49 +1,37 @@
-import { Card, CardActions, CardContent, CardMedia, Typography, Button, Rating, Snackbar, Alert } from '@mui/material';
-import {ReactComponent as AddTocart} from './Addtocart.svg'
-import { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { cartActionCreator } from '../reducers/cartReducer';
-import { useNavigate } from 'react-router-dom';
-import './listitem.css'
-function ListItem({number}) {
+import { useDispatch, useSelector } from "react-redux";
+import { useState,  } from "react";
+import { useNavigate } from "react-router-dom";
+import { cartActionCreator } from "../reducers/cartReducer";
+import { Snackbar, Alert,  Card, CardMedia, CardContent, Typography, Button, Rating, CardActions, } from "@mui/material";
+import Header from "../header/Header";
+import {ReactComponent as AddTocart} from '../products/Addtocart.svg';
+import './showitem.css';
+function ShowItem() {
 
-    let [isLogin, setLogin] = useState(false);
     let item = useSelector(products => products.products);
     let user =  useSelector(user => user.user);
-    let data = item[number];
-    let flag = user.loginFlag;
+    let data = item;
     let [counter, setCounter] = useState(0);
     let [isCart, setCart] = useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
 
-    function checkLogin() {
-        if(!flag) {
-            setLogin(true);
-            return false;
-        }
-        return true;
-    }
-
     function minusHandler() {
-        if(checkLogin()) {
+       
             if(counter === 0) {
                 return;
             }
             setCounter(prevState => prevState - 1);
         }
 
-    }
-
     function plusHandler() {
-        if(checkLogin()) {
+    
             setCounter(prevState => prevState + 1);
-        }
+    
     }
 
     async function handleCart() {
-        if(checkLogin()) {
             try {
                 if(counter === 0) {
                     return;
@@ -51,8 +39,8 @@ function ListItem({number}) {
             let cart = {};
                 let {username} = user;
                 let userId = {username}
-                item[number]["quantity"] = counter;
-                cart = item[number];
+                item["quantity"] = counter;
+                cart = item;
                 cart["rate"] = cart.rate;
                 cart["count"] = cart.count;
                 cart["userId"] = userId;
@@ -64,27 +52,7 @@ function ListItem({number}) {
                 console.log(err);
             }
         }
-    }
 
-    function handleDescription(event, text) {
-        try{
-        let btn = document.getElementById(event.target.id);
-        if(btn.innerText === 'READ MORE') {
-            let element = document.getElementById(number);
-            let description = item[number].description;
-            element.innerText = description;
-            btn.innerText = 'READ LESS';
-        }
-        else {
-            let element = document.getElementById(number);
-            let description = item[number].description;
-            element.innerText = description.slice(0, 30) + '...';
-            btn.innerText = 'READ MORE'
-        }
-    }catch(err) {
-        console.log(err);
-    }
-    }
     function imageHandler(e, image) {
 
         navigate('/image', {state : image});
@@ -95,11 +63,11 @@ function ListItem({number}) {
                   <Snackbar open={isCart}
             autoHideDuration={3000}
             onClose={()=> setCart(false)}><Alert severity ="success"> Item/s successfully to cart!</Alert></Snackbar>
-              <Snackbar open={isLogin}
-            autoHideDuration={3000}
-            onClose={()=> setLogin(false)}><Alert severity ="warning"> Please Login to access the cart!</Alert></Snackbar>
-            <div id = 'card'>
-        <Card height = "300px" width = "300px">
+            <div>
+                <Header></Header>
+            </div>
+            <div id = 'cardItem'>
+        <Card>
         <CardMedia
               sx={{ height: 200 }}
               image= {`data:image/jpeg;base64,${data.image}`}
@@ -112,13 +80,12 @@ function ListItem({number}) {
                 ₹{data.price}
               </Typography>
               <div>
-              <Typography variant="body2" color="text.secondary" id = {number}>
+              <Typography variant="body2" color="text.secondary">
                {
-                    data.description.slice(0, 30)+'...'
+                    data.description
       
                }
               </Typography>
-              <Button id = {'btn' + number} onClick={(event) => handleDescription(event, data.description)}>READ MORE</Button>
               </div>
               <Rating value={data?.rate || 0} />
               <Typography>{data.count}</Typography>
@@ -132,11 +99,7 @@ function ListItem({number}) {
             </Card>
             </div>
             </>
-)};
+)}
+            }
 
-
-
-
-}
-
-export default ListItem;
+export default ShowItem;

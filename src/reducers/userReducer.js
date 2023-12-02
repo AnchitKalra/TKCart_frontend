@@ -1,11 +1,21 @@
-import {signupApi} from '../apis/apis';
+import {loginWithToken, logoutApi, signupApi} from '../apis/apis';
 import { loginApi } from '../apis/apis';
 
 
+const initialState =  {
+    full_name : "",
+    username: "",
+    password: "",
+    signupFlag : false,
+    loginFlag : false,
+    notLoginFlag : true,
+}
 
 const ACTION = {
     SIGNUP: 'SIGNUP',
     LOGIN:  'LOGIN',
+    LOGINWITHTOKEN: 'LOGINWITHTOKEN',
+    LOGOUT: 'LOGOUT'
 }
 
 
@@ -32,28 +42,51 @@ export const loginActionCreator = (payload)=> {
     return actionCreator(ACTION.LOGIN , loginApi, payload);
 }
 
-
- const initialState =  {
-    full_name : "",
-    username: "",
-    password: "",
-    signupFlag : false,
-    loginFlag : false,
+export const loginWithTokenActionCreator = () =>{
+    return actionCreator(ACTION.LOGIN , loginWithToken);
 }
+
+export const logoutActionCreator = ()=>{
+    return actionCreator(ACTION.LOGOUT, logoutApi)
+}
+
+
 
 export const userReducer = (state = initialState, action) =>{
     let {type, data} = action;
 switch(type) {
-    case 'SIGNUP': 
-           state.signupFlag = data.data;
-           return {...state}
-    case 'LOGIN':
-            if(data.data.username){
+    case ACTION.SIGNUP: 
+        if(data) {
+            state = data;
+            state.signupFlag = true
+            
+        }
+           return {...state};
+
+    case ACTION.LOGIN:
+           if(data?.status === 200) {
+                sessionStorage.setItem(
+                    "access-token",
+                    data.data.accessToken
+                  )
+            state = data.data;
+           state.loginFlag = true;
+           }
+          return{...state};
+
+          case ACTION.LOGINWITHTOKEN:
+            if(data?.status === 200) 
+            {
+                state = data.data;
                 state.loginFlag = true;
             }
-            return {...state, ...data.data}
-  
-        
-        default:return {...state}
-}
-}
+            return {...state};
+
+            case ACTION.LOGOUT:
+                if(data.status === 200){
+                    state = initialState;
+                }
+                return{...state};
+    default : return{...state};
+        }
+    }

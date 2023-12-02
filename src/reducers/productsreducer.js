@@ -1,8 +1,9 @@
-import { productsApi } from "../apis/apis";
+import { productsApi, productsOptionsApi } from "../apis/apis";
 
 
 const ACTIONS =  {
-    PRODUCTS: 'PRODUCTS'
+    PRODUCTS: 'PRODUCTS',
+    OPTIONSELECT: 'OPTIONSELECT'
 }
 
 export const initialState=  [{
@@ -21,12 +22,12 @@ export const initialState=  [{
 ];
 
 
-const   asyncactionCreator = (type, fn = () => {})=> {
+const   asyncactionCreator = (type, fn = () => {}, payload)=> {
 
     return async(dispatch) =>{
         try{
 
-        let data = await fn();
+        let data = await fn(payload);
 
 
         dispatch({type, data});
@@ -40,15 +41,29 @@ export const productsActionCreator = () =>{
     return asyncactionCreator(ACTIONS.PRODUCTS, productsApi)
 }
 
+export const getOptionActionCreator = (payload) => {
+    return asyncactionCreator(ACTIONS.OPTIONSELECT, productsOptionsApi, payload);
+}
+
 
 export const productsReducer = (state = initialState, action) =>{
     const {type, data} = action;
     switch(type) {
-    case 'PRODUCTS':
+    case ACTIONS.PRODUCTS:
         state = data;
         return {
             ...state
         }
+
+    case ACTIONS.OPTIONSELECT:
+        if(data.status === 200) {
+            state = data.data;
+        }
+        return {
+            ...state
+        }
+
+
     
     default: return {
         ...state

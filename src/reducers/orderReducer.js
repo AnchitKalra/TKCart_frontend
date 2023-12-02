@@ -48,6 +48,7 @@ export const orderReducer = (state = initialState, action) =>{
     switch(type) {
     case ACTIONS.CHECKOUT:
         state = data;
+        console.log(state);
         return {
             state
     }

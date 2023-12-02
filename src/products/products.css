@@ -10,3 +10,9 @@
     margin: 2%;
    padding: 3%;
 }
+@media screen and (max-width:600px){
+    .innerContainer{
+        display: flex;
+        flex-direction: column;
+    }
+}

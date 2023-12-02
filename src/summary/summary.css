@@ -1,0 +1,12 @@
+.summary{
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+}
+#card{
+    margin: 5%;
+}
+#total{
+    margin: 5%;
+}

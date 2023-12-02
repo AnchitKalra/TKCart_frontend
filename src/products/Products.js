@@ -6,23 +6,23 @@ import ListItem from './ListItem';
 function Products() {
 
 
-    let response = useSelector(products => products);
+    let user= useSelector(user => user.user)
 
     const dispatch = useDispatch();
    const  products = async() =>{
         try{
             
-            await dispatch(productsActionCreator());
-          console.log(response.products);
+         dispatch(productsActionCreator());
         }catch(err){
             console.log(err);
         }
     }
 
    useEffect(()=>{
-         products();
 
-   },[response.user.loginFlag === true]);
+    products();      
+
+   },[user.loginFlag]);
 
    let i = 0;
  

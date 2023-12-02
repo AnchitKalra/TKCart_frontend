@@ -13,14 +13,15 @@
 #tk{
     color: greenyellow;
     margin: 3%;
+    cursor: pointer;
 
 }
 #signUp{
-    margin-left: 60%;
+    margin-left: 70%;
 }
 #cartButton{
    
-    margin-left: 70%;
+    margin-left: 5%;
 }
 #cart{
     background-color: aliceblue;
@@ -36,4 +37,46 @@
     width: 8%;
     background-color: aqua;
     flex-direction: column;
+}
+#name{
+    color: aquamarine;
+    margin-top: 3%;
+    margin-left: 5%;
+}
+#fullName{
+    color: aquamarine;
+    margin-top: 3%;
+}
+#combo-box-demo{
+    margin-top: 3%;
+    background-color: aliceblue;
+    margin-left: 20%;
+    width: 700px;
+}
+#autoComplete{
+    height: 100px;
+    color: aquamarine;
+
+}
+@media screen and (max-width:600px){
+    #combo-box-demo{
+        margin-top: 3%;
+        background-color: aliceblue;
+        width: 40px;
+        margin-left: 1%;
+    }
+    #autocomplete {
+        width: 50px;
+        display: none;
+    }
+    .sidebar {
+        margin-left: 70%;
+    }
+
+    #signUp{
+        margin-left: 40%;
+    }
+    #container{
+        width: 90%;
+    }
 }

@@ -1,6 +1,8 @@
 
 import axios from 'axios';
-const instance = axios.create({ baseURL: 'http://localhost:8080/'});
+const instance = axios.create({ baseURL: 'http://192.168.1.17:8080/'})
+
+   
 
 const ENDPOINT = {
     SIGNUP:'user/signup',
@@ -9,13 +11,16 @@ const ENDPOINT = {
     GETCART: 'cart/getCart',
     CLEARCART: 'cart/clearCart',
     CHECKOUT:"order/checkout",
-    UPDATEQUANTITY:"cart/updateQuantity"
+    UPDATEQUANTITY:"cart/updateQuantity",
+    LOGINWITHTOKEN: "user/loginWithToken",
+    LOGOUT: "user/logout",
+    GETOPTIONS: "products/getOption"    
 }
 
 export const signupApi = async(payload) =>{
     try{
        let response = await instance.post(ENDPOINT.SIGNUP, payload);
-       return response;
+       return response.data;
     }catch(err) {
         console.log(err);
     }
@@ -24,6 +29,7 @@ export const signupApi = async(payload) =>{
 export const loginApi = async(payload) =>{
     try{
         let response = await instance.post(ENDPOINT.LOGIN, payload);
+      
         return response;
     }
     catch(err) {
@@ -33,10 +39,42 @@ export const loginApi = async(payload) =>{
 
 export const productsApi = async() =>{
     try{
-        let response = await axios.get('http://fakestoreapi.com/products');
+        let response = await axios.get('http://192.168.1.17:8080/products/fetchProducts');
         return response.data;
     }
     catch(err) {
+        console.log(err);
+    }
+}
+
+export const loginWithToken = async() => {
+    try{
+        let token = sessionStorage.getItem('access-token');
+        let response = await axios.get('http://192.168.1.17:8080/user/loginWithToken', {headers: {'access-token' : token}}); 
+        return response;
+    }
+    catch(err) {
+        console.log(err);
+    }
+}
+
+export const productsOptionsApi = async(payload) => {
+    try{
+    let response = await instance.post(ENDPOINT.GETOPTIONS, payload)
+    return response;
+    }catch(err) {
+        console.log(err);
+    }
+}
+
+
+export const logoutApi = async()=> {
+    try{
+        let response = await instance.get(ENDPOINT.LOGOUT);
+        sessionStorage.clear('access-token');
+        return response;
+    }
+    catch(err){
         console.log(err);
     }
 }
@@ -83,6 +121,7 @@ export const checkoutApi = async(payload) =>{
 
 export const updateQuantityApi = async(payload) => {
     try{
+
         let response = await instance.patch(ENDPOINT.UPDATEQUANTITY, payload);
         return response.data;
     }

@@ -1,25 +1,13 @@
 import Header
  from "./header/Header";
  import { Snackbar, Alert } from "@mui/material";
- import { useEffect, useState } from "react";
- import { useSelector, useDispatch } from 'react-redux';
+ import { useState } from "react";
  import Products from "./products/Products";
 
 function App() {
   let [isLogin, setLogin] = useState(false); 
 
-  let response = useSelector(user => user.user);
-  const dispatch = useDispatch();
-  let [notLogin, setNotLogin] =useState(true)
-
-  useEffect(()=>{
-    if(response.loginFlag && notLogin){
-      setLogin(true);
-      setNotLogin(false);
-      
-    }
-  },[response.loginFlag])
-
+ 
 
   return (
     <>  <Snackbar open={isLogin}
