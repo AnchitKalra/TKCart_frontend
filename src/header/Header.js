@@ -41,7 +41,7 @@ function Header() {
             catch(err) {
               console.log(err);
             }
-          }, [data.loginFlag]);
+          }, [data?.accessToken]);
 
 
 
@@ -89,10 +89,14 @@ function Header() {
     }
 
 
-    let flag = data?.loginFlag;
+    let flag = data?.accessToken || false;
     useEffect(() =>{
         getCart();   
      }, [dataCart?.state?.length, flag])
+
+     function handleProfile() {
+        
+     }
 
     
 
@@ -108,12 +112,13 @@ function Header() {
             <div id = 'container'>
                  <span id = 'tk' onClick={home}>TKCART</span>
                  <div id='autocomplete'>
-                 <Autocomplete disablePortal id="combo-box-demo" options={items} sx={{ width: 700 }} renderInput={(params) => <TextField id = 'textfield' onSelect = {event => {handleOptions(event)}} {...params} label="Products" />}/>
+                 <Autocomplete disablePortal id="combo-box-demo" options={items} sx={{}} renderInput={(params) => <TextField id = 'textfield' onSelect = {event => {handleOptions(event)}} {...params} label="Products" />}/>
                  </div>
                  <span id = 'name'><Typography>Hi, </Typography></span>
                  <span id = 'fullName'><Typography>{data.full_name}</Typography></span>
                 <Button id = "cartButton" onClick = {showCartItems}><AddTocart height= "60px" width= "70px" id = "cart"></AddTocart></Button>
                  <Typography><sup id = 'count'>{count || 0}</sup></Typography>
+                <div onClick={handleProfile}> <img src = {data.image}  alt='profile  of user' id = 'profile' /></div>
             </div>
             <div className='sidebar'>
                 <Button id = 'logout' onClick={handleLogout}>LOGOUT</Button>

@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useEffect, useState }  from "react";
 import React from "react";
 import {useSelector, useDispatch} from 'react-redux';
@@ -11,7 +11,10 @@ import {ReactComponent as NotEye} from '../signup/not-eye.svg'
 
 
 
+
 function Login() {
+
+    let googleData = useLocation();
     let navigate = useNavigate();
     let [isSignup, setSignup] = useState(false); 
     const dispatch = useDispatch();
@@ -19,20 +22,28 @@ function Login() {
     let [isNotLogin, setNotLogin] = useState(false); 
     let responseData = useSelector(user => user.user);
     let [showPassword, setShowPassword] = useState(false);
+    let [data, setData] = useState({})
 
 
     useEffect(()=>{
-        if(responseData.signupFlag) {
+        if(responseData?.username){
             setSignup(true);
         }
-        if(responseData?.loginFlag) {
+        if(googleData?.state) {
+            data.username = googleData?.state.email;
+            setData(data);
+            data.password = 'Bangles@001';
+            setData(data);
+            JSON.parse(JSON.stringify(data));
+            console.log('logging responsedata');
+            console.log(responseData);
+            loginHandler();
+            }
+        if(responseData?.accessToken) {
             navigate('/');
         }
-    })
+    }, [responseData?.accessToken]);
 
-
-
-    let [data, setData] = useState({});
 
     function inputHandler(event) {
 
@@ -57,15 +68,14 @@ function Login() {
         }
 
     }
-    async function loginHandler() {
+     function loginHandler() {
         try{
-            await dispatch(loginActionCreator(data));
-        if(responseData?.loginFlag) {
+        
+             dispatch(loginActionCreator(data));
+        if(responseData?.accessToken) {
              navigate('/');
          }
-         else {
-             setNotLogin(true);
-         }}catch(err) {
+      }catch(err) {
              console.log(err);
          }
 
@@ -112,8 +122,10 @@ function Login() {
             <div>
                 <Button id = 'loginbtn' onClick = {loginHandler}>LOGIN</Button>
             </div>
+         
           
         </form>
+        
     </div>
     </>)
 }

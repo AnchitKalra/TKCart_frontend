@@ -11,7 +11,7 @@ function ListItem({number}) {
     let item = useSelector(products => products.products);
     let user =  useSelector(user => user.user);
     let data = item[number];
-    let flag = user.loginFlag;
+    let flag = user.accessToken || false;
     let [counter, setCounter] = useState(0);
     let [isCart, setCart] = useState(false);
     const dispatch = useDispatch();

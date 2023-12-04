@@ -10,11 +10,14 @@ import ShowCart from './showcart/ShowCart';
 import Summary from './summary/Summary';
 import ShowImage from './showImage/ShowImage';
 import ShowItem from './showitems/ShowItem';
+import {GoogleOAuthProvider} from '@react-oauth/google'
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
+  
   <Provider store={store}>
+    <GoogleOAuthProvider clientId = "757731075039-ccfl2c5dhlb613aae741ginf9am2c2lu.apps.googleusercontent.com">
   <BrowserRouter>
   <Routes> 
  
@@ -28,6 +31,7 @@ root.render(
                 
         </Routes> 
     </BrowserRouter>
+    </GoogleOAuthProvider>
     </Provider>
    
 );

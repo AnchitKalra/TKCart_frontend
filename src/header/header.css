@@ -58,16 +58,18 @@
     color: aquamarine;
 
 }
+#profile{
+    margin-left: 2%;
+}
 @media screen and (max-width:600px){
     #combo-box-demo{
         margin-top: 3%;
         background-color: aliceblue;
-        width: 40px;
+        width: 180px;
         margin-left: 1%;
     }
     #autocomplete {
-        width: 50px;
-        display: none;
+        width: 200px;
     }
     .sidebar {
         margin-left: 70%;
@@ -79,4 +81,11 @@
     #container{
         width: 90%;
     }
+}
+
+@media screen and (max-width:900px){
+    #combo-box-demo{
+        margin-left: 10%
+    }
+     
 }

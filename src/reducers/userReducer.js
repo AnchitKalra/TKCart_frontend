@@ -56,10 +56,8 @@ export const userReducer = (state = initialState, action) =>{
     let {type, data} = action;
 switch(type) {
     case ACTION.SIGNUP: 
-        if(data) {
-            state = data;
-            state.signupFlag = true
-            
+        if(data.status === 200) {
+            state = data.data;      
         }
            return {...state};
 
@@ -70,15 +68,16 @@ switch(type) {
                     data.data.accessToken
                   )
             state = data.data;
-           state.loginFlag = true;
+           }
+           else{
+            state = initialState;
            }
           return{...state};
 
           case ACTION.LOGINWITHTOKEN:
-            if(data?.status === 200) 
-            {
-                state = data.data;
-                state.loginFlag = true;
+            if(data.status === 200){}
+            else{
+                state = initialState;
             }
             return {...state};
 
