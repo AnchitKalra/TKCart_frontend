@@ -3,16 +3,16 @@ import {Card, Typography,  CardActions, CardContent, Button, Snackbar, Alert} fr
 import {ReactComponent as AddTocart} from '../products/Addtocart.svg';
 import './showcart.css';
 import Header from '../header/Header';
-import { checkoutActionCreator } from '../reducers/orderReducer';
-import {  clearCheckoutActionCreator, updateQuantityActionCreator } from '../reducers/cartReducer';
-import { useState } from 'react';
+import { checkoutActionCreator, getLastActionCreator } from '../reducers/orderReducer';
+import {   updateQuantityActionCreator } from '../reducers/cartReducer';
+import {  useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 
 function ShowCart() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    let cart = useSelector(cart => cart.cart.state);
+    let cart = useSelector(cart => cart.cart['0']);
     let user= useSelector(user => user.user);
     let [isOrder, setOrder] = useState(false);
 
@@ -22,6 +22,7 @@ function ShowCart() {
 
     let counter;
     let totalValue = 0;
+
     function checkout() {
 
         let order = {};
@@ -34,9 +35,10 @@ function ShowCart() {
         let userId = {username};
         order = {cartId, userId};
         dispatch(checkoutActionCreator(order));
-        dispatch(clearCheckoutActionCreator);
-            setOrder(true);
-            navigate('/summary');
+        dispatch(getLastActionCreator(userId));
+        setOrder(true);
+        setTimeout(()=>{
+            navigate('/lastOrder')}, 1000);
     }
 
     function minusHandler(e) {

@@ -63,25 +63,51 @@ export const cartReducer = (state = initialState, action) =>{
     const {type, data} = action;
     switch(type) {
     case ACTIONS.ADDTOCART:
-        state = data;
+        if(data?.status === 200) {
+        state = data.data;
         return {
-            state
-    }
+            ...state
+    }}else return{...state}
      case ACTIONS.GETCART:
-        state = data;
-        return{state}
+        if(data?.status === 200) {
+        state = [data.data]
+        return{...state}
+        }
+        else{
+            return {...state}
+        }
+
+    case ACTIONS.UPDATEQUANTITY:
+        if(data?.status === 200) {
+            state = data.data;
+            return {
+                ...state
+            }
+        }
+
+        else{
+            return {
+                ...state
+            }
+        }
     case ACTIONS.CLEARCART:
-        state = data;
+        if(data?.status === 200) {
+            state = data.data
         return{
-            state
+            ...state
+        }}
+        else{
+            return {
+                ...state
+            }
         }
 
     case ACTIONS.CLEARCHECKOUT:
-        state = initialState;
+        
         return {
-            state
+            ...state
         }
     
-    default: return {state}
+    default: return {...state}
 }
 }

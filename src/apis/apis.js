@@ -1,6 +1,6 @@
 
 import axios from 'axios';
-const instance = axios.create({ baseURL: 'http://192.168.1.3:8080/'})
+const instance = axios.create({ baseURL: ' http://192.168.1.8:8080/'})
 
    
 
@@ -14,7 +14,11 @@ const ENDPOINT = {
     UPDATEQUANTITY:"cart/updateQuantity",
     LOGINWITHTOKEN: "user/loginWithToken",
     LOGOUT: "user/logout",
-    GETOPTIONS: "products/getOption"    
+    GETOPTIONS: "products/getOption",
+    PROFILE: 'profile/saveImage',
+    GETPROFILE:'profile/getProfile',
+    GETORDERS:'order/getOrders',
+    GETLASTORDER: 'order/getLastOrder'    
 }
 
 export const signupApi = async(payload) =>{
@@ -39,7 +43,7 @@ export const loginApi = async(payload) =>{
 
 export const productsApi = async() =>{
     try{
-        let response = await axios.get('http://192.168.1.3:8080/products/fetchProducts');
+        let response = await axios.get(' http://192.168.1.8:8080/products/fetchProducts');
         return response.data;
     }
     catch(err) {
@@ -50,7 +54,7 @@ export const productsApi = async() =>{
 export const loginWithToken = async() => {
     try{
         let token = sessionStorage.getItem('access-token');
-        let response = await axios.get('http://192.168.1.3:8080/user/loginWithToken', {headers: {'access-token' : token}}); 
+        let response = await axios.get(' http://192.168.1.8:8080/user/loginWithToken', {headers: {'access-token' : token}}); 
         return response;
     }
     catch(err) {
@@ -82,7 +86,7 @@ export const logoutApi = async()=> {
 export const updateCartApi = async(payload) =>{
     try{
         let response = await instance.post(ENDPOINT.UPDATECART, payload);
-        return response.data;
+        return response;
     }
     catch(err) {
         console.log(err);
@@ -92,7 +96,7 @@ export const updateCartApi = async(payload) =>{
 export const getCartApi = async(payload) => {
     try{
         let response = await instance.post(ENDPOINT.GETCART, payload);
-        return response.data;
+        return response;
     }
     catch(err) {
         console.log(err);
@@ -102,7 +106,7 @@ export const getCartApi = async(payload) => {
 export const clearCartApi = async(payload) =>{
     try{
         let response = await instance.post(ENDPOINT.CLEARCART, payload);
-        return response.data;
+        return response;
     }
     catch(err) {
         console.log(err);
@@ -112,7 +116,7 @@ export const clearCartApi = async(payload) =>{
 export const checkoutApi = async(payload) =>{
     try{
         let response = await instance.post(ENDPOINT.CHECKOUT, payload);
-        return response.data;
+        return response;
     }
     catch(err) {
         console.log(err);
@@ -123,10 +127,51 @@ export const updateQuantityApi = async(payload) => {
     try{
 
         let response = await instance.patch(ENDPOINT.UPDATEQUANTITY, payload);
-        return response.data;
+        return response;
     }
     catch(err) {
         console.log(err);
     }
 }
 
+export const saveProfileApi = async(payload) => {
+    try{
+       
+        let response = await instance.post(ENDPOINT.PROFILE, payload);
+        return response;
+    }
+    catch(err) {
+        console.log(err);
+    }
+}
+
+export const getProfileApi = async(payload)=>{
+    try{
+    let response = await instance.post(ENDPOINT.GETPROFILE, payload);
+    return response
+    }catch(err) {
+        console.log(err);
+    }
+}
+
+export const getPreviousOrdersApi = async(payload) =>{
+    try{
+        let response = await instance.post(ENDPOINT.GETORDERS, payload);
+       return response;
+    }
+catch(err) {
+    console.log(err);
+}
+
+}
+
+
+export const getLastOrderApi = async(payload) => {
+    try{
+        let response = await instance.post(ENDPOINT.GETLASTORDER, payload);
+       return response;
+    }
+catch(err) {
+    console.log(err);
+}
+}

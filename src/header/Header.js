@@ -4,11 +4,12 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Button, Typography } from '@mui/material';
 import {ReactComponent as AddTocart} from '../products/Addtocart.svg';
 import { useEffect, useState } from 'react';
-import {  clearCartActionCreator, getCartActionCreator } from '../reducers/cartReducer';
+import { getCartActionCreator } from '../reducers/cartReducer';
 import { loginWithTokenActionCreator, logoutActionCreator} from '../reducers/userReducer';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import { getOptionActionCreator } from '../reducers/productsreducer';
+import { getProfileActionCreator, profileActionCreator } from '../reducers/profileReducer';
 
 
 
@@ -34,19 +35,27 @@ function Header() {
 
     let dataItems = useSelector(products=> products.products);
 
+    let profileItems = useSelector(profile=> profile.profile);
+    let dataCart = useSelector(cart => cart.cart)
+
     useEffect(() => {
+        
             try{
                 dispatch(loginWithTokenActionCreator());
-           }
+                getCart();
+                getProfile();
+                setCount(dataCart['0']?.length)
+            }
+           
             catch(err) {
               console.log(err);
             }
-          }, [data?.accessToken]);
+          }, [data?.accessToken, dataCart['0']?.length]);
 
 
 
 
-    let dataCart = useSelector(cart => cart.cart)
+   
     let items = [];
 
 
@@ -54,20 +63,13 @@ function Header() {
         let {username} = data;
         let userId = {username};
         dispatch(getCartActionCreator(userId));
-        setCount(dataCart.state?.length);
     }
 
     function showCartItems() {
         navigate('/showCart');
     }
 
-    function clearCart() {
-        let {username} = data;
-        let userId = {username};
-        dispatch(clearCartActionCreator(userId));
-
-    }
-
+   
     function handleLogout(){
         dispatch(logoutActionCreator());
     }
@@ -89,18 +91,60 @@ function Header() {
     }
 
 
+    function getProfile() {
+        try{
+       let {username} = data;
+       let user = {};
+       user.username = username;
+        JSON.parse(JSON.stringify(user));
+        dispatch(getProfileActionCreator(user))   
+        }catch(err) {
+            console.log(err);
+        }
+    }
     let flag = data?.accessToken || false;
-    useEffect(() =>{
-        getCart();   
-     }, [dataCart?.state?.length, flag])
 
      function handleProfile() {
-        
+        try{
+        let modal = document.querySelector('.modalDiv');
+        modal.classList.add('modaldiv');
+        modal.classList.remove('modalDiv');
+        }catch(err) {
+            let modal = document.querySelector('.modaldiv');
+            modal.classList.add('modalDiv');
+            modal.classList.remove('modaldiv');
+        }
+     }
+      function handlePic(e) {
+        try{
+            let input = document.getElementById('fileInput');
+            let reader = new FileReader();
+            let imageData;
+            let profile = {};
+            reader.onload = function() {
+                imageData = reader.result;
+                profile['image'] = imageData;
+                let {username} = data;
+                profile['userId'] = {username};
+                JSON.parse(JSON.stringify(profile));
+                dispatch(profileActionCreator(profile));
+            }
+
+            reader.readAsDataURL(input.files[0]);
+         
+          
+           
+        }catch(err) {
+            console.log(err);
+        }
+
      }
 
     
+    
 
     if(flag) {
+       
         for(let data1 in dataItems) {
             if(dataItems[data1]?.title === undefined) {
                 break;
@@ -118,11 +162,14 @@ function Header() {
                  <span id = 'fullName'><Typography>{data.full_name}</Typography></span>
                 <Button id = "cartButton" onClick = {showCartItems}><AddTocart height= "60px" width= "70px" id = "cart"></AddTocart></Button>
                  <Typography><sup id = 'count'>{count || 0}</sup></Typography>
-                <div onClick={handleProfile}> <img src = {data.image}  alt='profile  of user' id = 'profile' /></div>
-            </div>
-            <div className='sidebar'>
-                <Button id = 'logout' onClick={handleLogout}>LOGOUT</Button>
-                <Button id = 'clearcart' onClick={clearCart}>CLEAR CART</Button>
+                <div onClick={handleProfile}> <img src = {data.image || profileItems.image || `data:image/png;base64,${profileItems.image}`}   id = 'profile' height= '95px' width= '120px' alt='profile of user' />
+                <div className = 'modalDiv'>
+                    <Button variant='contained'> <input type='file' id = 'fileInput' onChange={handlePic}></input></Button>
+                  
+                    <Button onClick={handleLogout} variant='contained'>LOGOUT</Button>
+                  
+                </div>
+                </div>
             </div>
             </>
         )
@@ -136,3 +183,4 @@ function Header() {
 }
 
 export default Header;
+

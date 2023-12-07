@@ -99,9 +99,10 @@ function ListItem({number}) {
             autoHideDuration={3000}
             onClose={()=> setLogin(false)}><Alert severity ="warning"> Please Login to access the cart!</Alert></Snackbar>
             <div id = 'card'>
-        <Card height = "300px" width = "300px">
-        <CardMedia
-              sx={{ height: 200 }}
+        <Card id = 'materialCard'>
+        <CardMedia 
+              sx={{height:200}}
+              className='cardMedia'
               image= {`data:image/jpeg;base64,${data.image}`}
               title= {data.title}
               onClick = {event=>imageHandler(event, data.image)}

@@ -1,7 +1,9 @@
-import { checkoutApi } from "../apis/apis";
+import { checkoutApi, getLastOrderApi, getPreviousOrdersApi } from "../apis/apis";
 
 const ACTIONS =  {
-    CHECKOUT: 'CHECKOUT'
+    CHECKOUT: 'CHECKOUT',
+    GETORDERS: 'GETORDERS',
+    GETLASTORDER: 'GETLASTORDER'
 }
 
 export const initialState=  [{
@@ -39,6 +41,12 @@ export const checkoutActionCreator = (payload) =>{
     return actionCreator(ACTIONS.CHECKOUT, checkoutApi, payload);
 }
 
+export const getOrdersActionCreator = (payload) => {
+    return actionCreator(ACTIONS.GETORDERS, getPreviousOrdersApi, payload);
+}
+export const getLastActionCreator = (payload) => {
+    return actionCreator(ACTIONS.GETLASTORDER, getLastOrderApi, payload);
+}
 
 
 
@@ -47,12 +55,37 @@ export const orderReducer = (state = initialState, action) =>{
     const {type, data} = action;
     switch(type) {
     case ACTIONS.CHECKOUT:
-        state = data;
-        console.log(state);
+        if(data?.status === 200) {
+        state = data.data;
         return {
-            state
+            ...state
+    }}else{
+        return {...state}
     }
+    case ACTIONS.GETORDERS:
+        if(data?.status === 200) {
+            state = data.data;
+            return {
+                ...state
+            }
+        }
+        else{
+            return {...state}
+        }
+
+        case ACTIONS.GETLASTORDER:
+            if(data?.status === 200) {
+                state = data.data;
+                return {
+                    ...state
+                }
+            }
+            else{
+                return {
+                    ...state
+                }
+            }
  
-    default: return {state}
+    default: return {...state}
 }
 }
