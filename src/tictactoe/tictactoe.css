@@ -1,0 +1,66 @@
+#gridDiv{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10%;
+}
+#firstcoldiv{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+#secondcoldiv{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+#thirdcoldiv{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+.btn{
+    height: 100px;
+    width: 100px;
+    font-size:larger;
+    border: 5px solid black;
+    padding: 5%;
+    color: white;
+}
+.heading{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.unhide{
+    margin: 3%;;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.hide{
+    display: none;
+}
+.colorGreen{
+    background-color: green;
+}
+.colorRed{
+    background-color: red;
+}
+.hidden {
+    display: none;
+}
+.nothidden{
+    display: block;
+}
+.pDiv {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

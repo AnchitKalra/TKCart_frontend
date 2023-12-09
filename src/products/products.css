@@ -51,6 +51,10 @@ disp{
     cursor: pointer;
 }
 
+#tictactoe {
+    cursor: pointer;
+}
+
 @media screen and (max-width:600px){
     .innerContainer{
         display: flex;

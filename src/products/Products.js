@@ -87,6 +87,10 @@ function Products() {
         boxShadow: 24,
         p: 4,
       };
+
+      function gameHandler() {
+        navigate('/tictactoe')
+      }
       
  
 
@@ -107,6 +111,9 @@ function Products() {
     </Divider>
     <Divider>
     <Typography onClick= {getLastOrder} id = 'lastOrder'>LAST ORDER</Typography>
+    </Divider>
+    <Divider>
+    <Typography onClick = {gameHandler} id = 'tictactoe'> PLAY A GAME </Typography>
     </Divider>
   </Box>
 </Paper>

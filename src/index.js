@@ -12,6 +12,7 @@ import ShowImage from './showImage/ShowImage';
 import ShowItem from './showitems/ShowItem';
 import {GoogleOAuthProvider} from '@react-oauth/google'
 import ShowLastOrder from './lastorder/ShowLastOrder';
+import TicTacToe from './tictactoe/TicTacToe';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -30,6 +31,7 @@ root.render(
                 <Route export path='/image' element = {<ShowImage />}></Route>
                 <Route export path='/item' element = {<ShowItem />}></Route>
                 <Route export path='/lastOrder' element  = {<ShowLastOrder />}></Route>
+                <Route export path='/tictactoe' element = {<TicTacToe />}></Route>
                 
         </Routes> 
     </BrowserRouter>

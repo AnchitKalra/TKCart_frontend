@@ -144,7 +144,6 @@ function Header() {
     
 
     if(flag) {
-       
         for(let data1 in dataItems) {
             if(dataItems[data1]?.title === undefined) {
                 break;
@@ -162,7 +161,7 @@ function Header() {
                  <span id = 'fullName'><Typography>{data.full_name}</Typography></span>
                 <Button id = "cartButton" onClick = {showCartItems}><AddTocart height= "60px" width= "70px" id = "cart"></AddTocart></Button>
                  <Typography><sup id = 'count'>{count || 0}</sup></Typography>
-                <div onClick={handleProfile}> <img src = {data.image || profileItems.image || `data:image/png;base64,${profileItems.image}`}   id = 'profile' height= '95px' width= '120px' alt='profile of user' />
+                <div onClick={handleProfile}> <img src = {data?.image || profileItems?.image || `data:image/png;base64,${profileItems?.image}`}   id = 'profile' height= '95px' width= '120px' alt='profile of user' />
                 <div className = 'modalDiv'>
                     <Button variant='contained'> <input type='file' id = 'fileInput' onChange={handlePic}></input></Button>
                   
