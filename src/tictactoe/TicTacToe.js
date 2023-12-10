@@ -38,6 +38,7 @@ let gameOver = false;
                 return;
             }  
             let id = e.target.id;
+            id = parseInt(id);
             if(array.includes(id)) {
                 return;
             }
@@ -64,6 +65,7 @@ let gameOver = false;
             pElement.innerHTML += "<h3>Game Ended In a Tie!</h3>"
         }
              id = computerMove();
+             id = parseInt(id)
              console.log('logging comp id');
              console.log(id);
             array.push(id);
