@@ -1,6 +1,6 @@
 
 import axios from 'axios';
-const instance = axios.create({ baseURL: ' http://192.168.1.9:8080/'})
+const instance = axios.create({ baseURL: ' http://192.168.1.10:8080/'})
 
    
 
@@ -43,7 +43,7 @@ export const loginApi = async(payload) =>{
 
 export const productsApi = async() =>{
     try{
-        let response = await axios.get(' http://192.168.1.9:8080/products/fetchProducts');
+        let response = await axios.get(' http://192.168.1.10:8080/products/fetchProducts');
         return response.data;
     }
     catch(err) {
@@ -54,7 +54,7 @@ export const productsApi = async() =>{
 export const loginWithToken = async() => {
     try{
         let token = sessionStorage.getItem('access-token');
-        let response = await axios.get(' http://192.168.1.9:8080/user/loginWithToken', {headers: {'access-token' : token}}); 
+        let response = await axios.get(' http://192.168.1.10:8080/user/loginWithToken', {headers: {'access-token' : token}}); 
         return response;
     }
     catch(err) {

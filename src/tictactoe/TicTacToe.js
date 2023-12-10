@@ -767,6 +767,8 @@ let gameOver = false;
             }
             if(text1 === '' || (text1 !== text)) {
             checkmate = 0;
+        }else{
+            checkmate = 1;
         }
 
 
