@@ -105,7 +105,7 @@ function Login() {
             <Input type = 'text' id = 'username' onChange={event=> inputHandler(event)}></Input>
             </div>
             <div id = 'loginDiv'>
-                <FormLabel htmlFor="password">Password:</FormLabel>
+                <FormLabel htmlFor="password" id = "loginPass">Password:</FormLabel>
                 <Input type="password" id = 'password' onChange={event=> inputHandler(event)}></Input>
                 <Eye height = '30px' width = '30px' className = 'unhide' id = 'passwordS' onClick={handlePassword} alt = 'Show password'/>
             <NotEye height = '30px' width = '30px' className = 'hide' id = 'passwordH' onClick = {handlePassword} alt = 'Hide password' />
