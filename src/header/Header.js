@@ -32,6 +32,7 @@ function Header() {
     let [count, setCount] = useState(0);
 
     let data = useSelector(user => user.user);
+    let productItems = useSelector(products=> products.products);
 
     let profileItems = useSelector(profile=> profile.profile);
     let dataCart = useSelector(cart => cart.cart)
@@ -142,11 +143,11 @@ function Header() {
     
 
     if(flag) {
-        for(let data1 in profileItems) {
-            if(profileItems[data1]?.title === undefined) {
+        for(let data1 in productItems) {
+            if(productItems[data1]?.title === undefined) {
                 break;
             }
-            items.push(profileItems[data1].title);
+            items.push(productItems[data1].title);
         }
         return(
             <>
