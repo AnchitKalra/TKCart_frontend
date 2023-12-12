@@ -15,3 +15,8 @@
     border: 5px solid black;
     padding: 5%;
 }
+#loginDiv{
+    display: flex;
+    flex-direction: row;
+    margin-top: 2%;
+}

@@ -9,9 +9,24 @@
 
 #signupForm{
     border: 5px solid black;
-    height: 150px;
-    padding: 4%;
+    height: 200px;
+    padding: 5%;
+    width: 300px;
 }
 .hide{
     display: none;
+}
+#google{
+    margin-top: 2%;
+}
+#submit{
+    margin-top: 2%;
+}
+#passwordDiv{
+    margin-top: 2%;
+    display: flex;
+    flex-direction: row;
+}
+#passwordLabel{
+    margin-top: 2%;
 }

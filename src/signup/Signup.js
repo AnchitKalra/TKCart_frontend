@@ -27,12 +27,11 @@ function Signup() {
     let [isNotSignup, setNotSignup] = useState(false); 
     let response = useSelector(user => user.user);
     let [isNotPassword, setNotPassword] = useState(false);
-    let [showPassword, setShowPassword] = useState(false);
+    let showPassword = false;
 
     const dispatch = useDispatch();
 
     let [data, setData] = useState({});
-    let [profileData, setProfileData] = useState({});
 
     useEffect(
         () => {
@@ -76,17 +75,6 @@ function Signup() {
         try{
 
         let id = event.target.id;
-        if(id === 'password') {
-            let inputField = document.getElementById(id) 
-            if(showPassword) {
-              
-                    inputField.setAttribute('type', 'text');
-                
-            }
-            else{
-                inputField.setAttribute('type', 'password');
-            }
-        }
         data[event.target.id] = event.target.value;
         setData(data);
         JSON.parse(JSON.stringify(data));
@@ -140,14 +128,17 @@ function Signup() {
     }
 
     function handlePassword() {
-        setShowPassword(prevState => !prevState);
+        showPassword = !showPassword;
         let image1 = document.getElementById('passwordS');
         let image2 = document.getElementById('passwordH');
-        if(!showPassword) {
+        let inputField = document.getElementById('password');
+        if(showPassword) {
+            inputField.setAttribute('type', 'text');  
             image1.classList.add('hide');
             image2.classList.remove('hide');
         }
         else{
+            inputField.setAttribute('type', 'password');
             image1.classList.remove('hide');
             image2.classList.add('hide');
            
@@ -176,18 +167,20 @@ function Signup() {
             <FormLabel htmlFor = 'username'>Username:</FormLabel>
             <Input type='text' id = 'username' onChange={event =>{inputHandler(event)}}></Input>
             </div>
-            <div>
-            <FormLabel htmlFor = 'password' >Password:</FormLabel>
-            <Input type='password' id = 'password' onChange={event =>{inputHandler(event)}}></Input>
-
-            <Eye height = '30px' width = '30px' className = 'unhide' id = 'passwordS' onClick={handlePassword} alt = 'Show password'/>
-            <NotEye height = '30px' width = '30px' className = 'hide' id = 'passwordH' onClick = {handlePassword} alt = 'Hide password' />
+            <div id = 'passwordDiv'>
+            <FormLabel htmlFor = 'password' id = 'passwordLabel' >Password:</FormLabel>
+            <Input type='password' id = 'password' onChange={event =>{inputHandler(event)}} />
+            <Eye height = '25px' width = '25px' className = 'unhide' id = 'passwordS' onClick={handlePassword} alt = 'Show password'/>
+            <NotEye height = '25px' width = '25px' className = 'hide' id = 'passwordH' onClick = {handlePassword} alt = 'Hide password' />
+           
             
             </div>
-            <div>
+            <div id = 'submit'>
                 <Button onClick={submitForm}>Submit</Button>
             </div>
+            <div id= 'google'>
             <Button variant="contained" color='success' onClick = {() => login()}> LOGIN WITH GOOGLE <Google height = '30px' width = '30px'></Google></Button>
+            </div>
         </form>
     </div></>)
 }
