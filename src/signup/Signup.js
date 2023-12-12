@@ -170,8 +170,8 @@ function Signup() {
             <div id = 'passwordDiv'>
             <FormLabel htmlFor = 'password' id = 'passwordLabel' >Password:</FormLabel>
             <Input type='password' id = 'password' onChange={event =>{inputHandler(event)}} />
-            <Eye height = '25px' width = '25px' className = 'unhide' id = 'passwordS' onClick={handlePassword} alt = 'Show password'/>
-            <NotEye height = '25px' width = '25px' className = 'hide' id = 'passwordH' onClick = {handlePassword} alt = 'Hide password' />
+            <Eye height = '30px' width = '30px' className = 'unhide' id = 'passwordS' onClick={handlePassword} alt = 'Show password'/>
+            <NotEye height = '30px' width = '30px' className = 'hide' id = 'passwordH' onClick = {handlePassword} alt = 'Hide password' />
            
             
             </div>
