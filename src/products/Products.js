@@ -1,7 +1,7 @@
 import './products.css';
 import { useSelector, useDispatch } from "react-redux";
 import { productsActionCreator } from "../reducers/productsreducer";
-import { useEffect, useState } from 'react';
+import { useEffect} from 'react';
 import ListItem from './ListItem';
 import {Button ,Paper, Box, Typography, Divider} from '@mui/material'
 import { clearCartActionCreator } from '../reducers/cartReducer';

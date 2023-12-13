@@ -1,29 +1,42 @@
 import Header
  from "./header/Header";
- import { Snackbar, Alert } from "@mui/material";
- import { useEffect, useState } from "react";
+ import { Alert, Snackbar } from "@mui/material";
+ import React, { useEffect, useState } from "react";
  import Products from "./products/Products";
  import { useSelector } from "react-redux";
+ import { useDispatch } from "react-redux";
+import { countActionCreator } from "./reducers/countReducer";
 
 function App() {
-  let [isLogin, setLogin] = useState(false); 
-  let user = useSelector(user=> user.user)
+  let [isLogin, setIsLogin] = useState(false);
+  let user = useSelector(user=> user.user);
+  let count = useSelector(count=> count.count);
+  const dispatch = useDispatch();
+  
 
-  function login(){
-    try{
-      if(user.accessToken){
-        setLogin(true)
-      }}catch(err){}
+
+  const handleLogin = () =>{
+    if(user?.accessToken) {
+      dispatch(countActionCreator());
+      setIsLogin(true);
+    }
+  }
+  useEffect(() =>{
+    if(user?.accessToken && count?.count < 1) {
+      handleLogin();
+    }
+  }, [user?.accessToken])
+
+  const handleClose = () => {
+    setIsLogin(false);
   }
 
-  useEffect(()=>
-  
-    login(),[user.accessToken])
 
   return (
     <>  <Snackbar open={isLogin}
     autoHideDuration={3000}
-    onClose={()=> setLogin(false)}><Alert severity ="success"> Login successfull!</Alert></Snackbar>
+        onClose={handleClose}
+        ><Alert severity="success">LOGIN SUCCESS!</Alert></Snackbar>
     <div>
       <Header />
       <Products />
