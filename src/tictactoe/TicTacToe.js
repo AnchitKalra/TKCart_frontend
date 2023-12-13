@@ -1,7 +1,6 @@
 import {  Typography } from "@mui/material";
 import './tictactoe.css';
 import Header from "../header/Header";
-import { CanvasHTMLAttributes } from "react";
 
 function TicTacToe() {
 

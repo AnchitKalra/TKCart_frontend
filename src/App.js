@@ -5,7 +5,7 @@ import Header
  import Products from "./products/Products";
  import { useSelector } from "react-redux";
  import { useDispatch } from "react-redux";
-import { countActionCreator } from "./reducers/countReducer";
+import {  countIncrementActionCreator } from "./reducers/countReducer";
 
 function App() {
   let [isLogin, setIsLogin] = useState(false);
@@ -17,7 +17,7 @@ function App() {
 
   const handleLogin = () =>{
     if(user?.accessToken) {
-      dispatch(countActionCreator());
+      dispatch(countIncrementActionCreator());
       setIsLogin(true);
     }
   }
@@ -34,7 +34,7 @@ function App() {
 
   return (
     <>  <Snackbar open={isLogin}
-    autoHideDuration={3000}
+    autoHideDuration={6000}
         onClose={handleClose}
         ><Alert severity="success">LOGIN SUCCESS!</Alert></Snackbar>
     <div>

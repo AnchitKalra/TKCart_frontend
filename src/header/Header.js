@@ -10,6 +10,7 @@ import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import { getOptionActionCreator } from '../reducers/productsreducer';
 import { getProfileActionCreator, profileActionCreator } from '../reducers/profileReducer';
+import { countDecrementActionCreator } from '../reducers/countReducer';
 
 
 
@@ -70,6 +71,7 @@ function Header() {
 
    
     function handleLogout(){
+        dispatch(countDecrementActionCreator());
         dispatch(logoutActionCreator());
     }
 
